@@ -22,10 +22,12 @@ import {observe} from './lib/observe.js';
 import {onBFCacheRestore} from './lib/onBFCacheRestore.js';
 import {ReportHandler} from './types.js';
 
-
+/**
+ * first content paint
+ */
 export const getFCP = (onReport: ReportHandler, reportAllChanges?: boolean) => {
   const firstHidden = getFirstHidden();
-  let metric = initMetric('FCP');
+  let metric = initMetric('FCP'); // 初始化一个FCP性能指标
   let report: ReturnType<typeof bindReporter>;
 
   const entryHandler = (entry: PerformanceEntry) => {
@@ -35,6 +37,7 @@ export const getFCP = (onReport: ReportHandler, reportAllChanges?: boolean) => {
       }
 
       // Only report if the page wasn't hidden prior to the first paint.
+      // 只有当页面在第一次绘制之前没有隐藏时才会报告
       if (entry.startTime < firstHidden.timeStamp) {
         metric.value = entry.startTime;
         metric.entries.push(entry);
@@ -43,7 +46,8 @@ export const getFCP = (onReport: ReportHandler, reportAllChanges?: boolean) => {
       }
     }
   };
-
+  
+  // observe监听
   const po = observe('paint', entryHandler);
   if (po) {
     report = bindReporter(onReport, metric, reportAllChanges);

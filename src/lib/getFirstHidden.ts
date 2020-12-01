@@ -20,6 +20,8 @@ import {onHidden} from './onHidden.js';
 let firstHiddenTime = -1;
 
 const initHiddenTime = () => {
+  // document.visibilityState 当前文档可见状态
+  // 当此属性的值改变时, 会递交 visibilitychange 事件给Document
   return document.visibilityState === 'hidden' ? 0 : Infinity;
 }
 

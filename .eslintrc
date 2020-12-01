@@ -33,7 +33,7 @@
         "max-len": [2, {
           "ignorePattern": "^\\s*import|= require\\(|^\\s*it\\(|^\\s*describe\\(",
           "ignoreUrls": true
-        }],
+        }]
       }
     },
     {
